@@ -52,6 +52,7 @@ src/
 <MovieSection title="⭐ 평점 높은 영화" movies={topRated} />
 <MovieSection title="⏳ 상영 예정작" movies={upcoming} />
 ```
+<img width="1906" height="944" alt="영화리뷰웹 메인페이지" src="https://github.com/user-attachments/assets/a9bf994b-b6cc-4a93-ac55-3142c09da33d" />
 
 ---
 
@@ -62,8 +63,9 @@ src/
 * 장르별, 기분별, 상황별 추천 버튼과 연동
 * MovieSection 컴포넌트 재활용으로 시각적 일관성 유지
 
-```js
-https://yourdomain.com/recommendations?genres=18,10749&label=로맨스
+```
+<img width="1903" height="947" alt="영화리뷰웹 추천영화 페이지" src="https://github.com/user-attachments/assets/7764b18e-bb60-4940-a368-3dfd112c6bb3" />
+
 ```
 
 ---
