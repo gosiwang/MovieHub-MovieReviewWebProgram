@@ -1,9 +1,10 @@
 ## 🎬 MovieHub (Next.js 기반 영화 추천 & 리뷰 플랫폼)
 
-* 📆 개발 기간: 2025.10.20 ~ 2025.10.24
-* 👥 참여 인원: 6명 (Front-end 팀)
-* 🧭 역할: 리뷰/추천/헤더/푸터/모달 UI 개발 및 사용자 경험 설계
-> TMDB API를 활용한 영화 검색, 추천, 리뷰 서비스
+* 📆 개발 기간: 2025.10.20 ~ 2025.10.24  
+* 👥 참여 인원: 6명 (Front-end 팀)  
+* 🧭 역할: 리뷰/추천/헤더/푸터/모달 UI 개발 및 사용자 경험 설계  
+
+> TMDB API를 활용한 영화 검색, 추천, 리뷰 서비스  
 > 사용자 맞춤 영화 추천, 자동완성 검색, 로그인/마이페이지 기능 포함
 
 ---
@@ -41,10 +42,10 @@ src/
 
 #### 1️⃣ **메인 페이지 (`page.js`)**
 
-* TMDB API를 통해 실시간 영화 데이터 Fetch
-* 인기작 / 현재 상영작 / 평점 높은 영화 / 상영 예정작 4가지 섹션 구성
-* 데이터 캐싱(1시간) 적용으로 성능 최적화
-* `MovieSection` 컴포넌트를 재사용하여 UI 일관성 유지
+* TMDB API를 통해 실시간 영화 데이터 Fetch  
+* 인기작 / 현재 상영작 / 평점 높은 영화 / 상영 예정작 4가지 섹션 구성  
+* 데이터 캐싱(1시간) 적용으로 성능 최적화  
+* `MovieSection` 컴포넌트를 재사용하여 UI 일관성 유지  
 
 ```js
 <MovieSection title="🔥 인기 영화" movies={popular} />
@@ -52,47 +53,45 @@ src/
 <MovieSection title="⭐ 평점 높은 영화" movies={topRated} />
 <MovieSection title="⏳ 상영 예정작" movies={upcoming} />
 ```
-<img width="1906" height="944" alt="영화리뷰웹 메인페이지" src="https://github.com/user-attachments/assets/a9bf994b-b6cc-4a93-ac55-3142c09da33d" />
+
+![영화리뷰웹 메인페이지](https://github.com/user-attachments/assets/a9bf994b-b6cc-4a93-ac55-3142c09da33d)
 
 ---
 
 #### 2️⃣ **추천 페이지 (`recommendations/page.js`)**
 
-* URL 쿼리(`?genres=18,10749&label=로맨스`)를 받아
-  해당 장르의 영화를 TMDB `/discover/movie` API로 Fetch
-* 장르별, 기분별, 상황별 추천 버튼과 연동
-* MovieSection 컴포넌트 재활용으로 시각적 일관성 유지
+* URL 쿼리(`?genres=18,10749&label=로맨스`)를 받아  
+  해당 장르의 영화를 TMDB `/discover/movie` API로 Fetch  
+* 장르별, 기분별, 상황별 추천 버튼과 연동  
+* MovieSection 컴포넌트 재활용으로 시각적 일관성 유지  
 
-```
-<img width="1903" height="947" alt="영화리뷰웹 추천영화 페이지" src="https://github.com/user-attachments/assets/7764b18e-bb60-4940-a368-3dfd112c6bb3" />
-
-
+![영화리뷰웹 추천영화 페이지](https://github.com/user-attachments/assets/7764b18e-bb60-4940-a368-3dfd112c6bb3)
 
 ---
 
 #### 3️⃣ **헤더 (`Header.jsx`)**
 
-* ✅ 영화 검색 자동완성 (TMDB `/search/multi`)
-* ✅ 최근 검색어 저장 / 삭제 / 저장 끄기 기능
-* ✅ 장르·기분·상황별 추천 드롭다운 메뉴
-* ✅ 로그인 / 로그아웃 / 마이페이지 이동
-* ✅ 관리자 로그인 시 “관리자 페이지로 이동” 버튼 표시
-* ✅ 반응형 UI 및 포커스 외부 클릭 시 자동 닫힘
+* ✅ 영화 검색 자동완성 (TMDB `/search/multi`)  
+* ✅ 최근 검색어 저장 / 삭제 / 저장 끄기 기능  
+* ✅ 장르·기분·상황별 추천 드롭다운 메뉴  
+* ✅ 로그인 / 로그아웃 / 마이페이지 이동  
+* ✅ 관리자 로그인 시 “관리자 페이지로 이동” 버튼 표시  
+* ✅ 반응형 UI 및 포커스 외부 클릭 시 자동 닫힘  
 
-<img width="1903" height="402" alt="영화리뷰웹 헤더" src="https://github.com/user-attachments/assets/fdd94db4-70c4-4e67-bafb-bc8e392098be" />
+![영화리뷰웹 헤더](https://github.com/user-attachments/assets/fdd94db4-70c4-4e67-bafb-bc8e392098be)
 
 ---
 
 #### 4️⃣ **푸터 (`Footer.jsx`)**
 
-* MovieReview 브랜드 섹션
-* 서비스 / 정보 / 소셜 링크
-* 개인정보 처리방침, 이용약관 모달 연결
-* TMDB 데이터 출처 명시
-* 연도 자동 업데이트
-* 완전한 반응형 CSS 적용 (`Footer.module.css`)
+* MovieReview 브랜드 섹션  
+* 서비스 / 정보 / 소셜 링크  
+* 개인정보 처리방침, 이용약관 모달 연결  
+* TMDB 데이터 출처 명시  
+* 연도 자동 업데이트  
+* 완전한 반응형 CSS 적용 (`Footer.module.css`)  
 
-<img width="1806" height="264" alt="영화리뷰웹 푸터" src="https://github.com/user-attachments/assets/7ab26c81-7ee8-451f-82e2-92c87fb316df" />
+![영화리뷰웹 푸터](https://github.com/user-attachments/assets/7ab26c81-7ee8-451f-82e2-92c87fb316df)
 
 ---
 
@@ -155,8 +154,7 @@ npm run dev
 
 ### 📜 라이선스
 
-> 본 프로젝트는 [TMDB API 사용정책](https://www.themoviedb.org/documentation/api/terms-of-use)에 따라
-> 비상업적 학습/포트폴리오 목적의 사용만을 허용합니다.
+> 본 프로젝트는 [TMDB API 사용정책](https://www.themoviedb.org/documentation/api/terms-of-use)에 따라  
+> 비상업적 학습/포트폴리오 목적의 사용만을 허용합니다.  
 >
-> © {currentYear} MovieHub. All rights reserved.
-
+> © 2025 MovieHub. All rights reserved.
