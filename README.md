@@ -1,189 +1,153 @@
-# 🎬 MovieHub — 영화 정보 및 추천 서비스 (Front-end)
+## 🎬 MovieHub (Next.js 기반 영화 추천 & 리뷰 플랫폼)
 
-> 📆 개발 기간: 2025.10.20 ~ 2025.10.24
-> 👥 참여 인원: 6명 (Front-end 팀)
-> 🧭 역할: **리뷰/추천/헤더/푸터/모달 UI 개발 및 사용자 경험 설계**
-
----
-
-## 📌 프로젝트 개요
-
-**MovieHub**는 TMDB 오픈 API를 기반으로 한 영화 정보 및 추천 서비스입니다.
-Next.js(App Router)와 React Context를 사용해 **검색 → 상세 → 리뷰 → 추천 → 마이페이지**까지
-하나의 플로우로 연결된 사용자 경험을 제공합니다.
-
-> 🎯 목표: “사용자가 한눈에 영화 정보를 탐색하고, 자신의 감정에 맞는 영화를 추천받을 수 있는 플랫폼 구현”
+> TMDB API를 활용한 영화 검색, 추천, 리뷰 서비스
+> 사용자 맞춤 영화 추천, 자동완성 검색, 로그인/마이페이지 기능 포함
 
 ---
 
-## 🧱 기술 스택
-
-| 구분            | 사용 기술                           |
-| ------------- | ------------------------------- |
-| **Framework** | Next.js (App Router), React 18  |
-| **언어/런타임**    | JavaScript (ES6+), Node.js      |
-| **스타일링**      | CSS Modules, Custom Tokens      |
-| **데이터/API**   | TMDB(Open API), Axios(fetch)    |
-| **상태 관리**     | React Context, LocalStorage     |
-| **배포/환경**     | Vercel, .env.local (API key 관리) |
-
----
-
-## 🗂️ 전체 구조 요약
+### 🧱 프로젝트 구조
 
 ```
 src/
-├─ app/
-│  ├─ mainpage/              # 메인 (인기/상영중/평점 등)
-│  ├─ movieInfo/[id]/        # 영화 상세
-│  ├─ search/                # 검색 결과
-│  ├─ recommendations/       # 맞춤 추천
-│  ├─ review/                # 리뷰 작성/수정
-│  ├─ mypage/                # 프로필/비밀번호/내 리뷰
-│  ├─ admin/                 # 관리자 UI
-│  ├─ modal/                 # 정책/약관 모달
-│  ├─ auth/                  # 로그인 상태 관리
-│  └─ api/chatbot/           # Gemini 챗봇
-├─ component/                # 공통 UI 컴포넌트
-│  ├─ Header.js / Footer.js
-│  ├─ MovieSection.jsx / MovieCard.jsx
-│  └─ Chatbot/
-├─ lib/
-│  ├─ style/styles.js        # 디자인 토큰
-│  └─ data/                  # 더미 데이터
-└─ apis/Api.js               # axios 요청 헬퍼
+ ├─ app/
+ │   ├─ page.js                # 메인 페이지 (영화 섹션별 리스트)
+ │   ├─ recommendations/
+ │   │    └─ page.js           # 장르별/기분별 맞춤 영화 추천
+ │   ├─ modal/
+ │   │    ├─ personal/page.js  # 개인정보 처리방침 모달
+ │   │    └─ use/page.js       # 사이트 이용약관 모달
+ │   ├─ auth/AuthContext.js    # 로그인/사용자 상태 관리
+ │   ├─ mypage/                # 마이페이지
+ │   └─ login/                 # 로그인 페이지
+ │
+ ├─ component/
+ │   ├─ MovieSection.jsx       # 영화 섹션 렌더링 컴포넌트
+ │   ├─ Header.jsx             # 상단 헤더 (검색 & 추천)
+ │   ├─ Footer.jsx             # 하단 푸터 (정책/링크)
+ │   └─ styles/
+ │        ├─ Header.module.css
+ │        └─ Footer.module.css
+ │
+ └─ public/
+      └─ Logo.png
 ```
 
 ---
 
-## 💼 내가 담당한 주요 기능
+### 🚀 주요 기능 요약
 
-### 1️⃣ **헤더(Header) & 푸터(Footer) UI / 기능 구현**
+#### 1️⃣ **메인 페이지 (`page.js`)**
 
-| 기능                 | 설명                                       |
-| ------------------ | ---------------------------------------- |
-| 🔍 **검색 기능**       | TMDB `search/multi` API를 활용한 실시간 검색 자동완성 |
-| 🕹️ **추천 메뉴 드롭다운** | “기분/상황/장르”별 추천 페이지로 이동                   |
-| 🧭 **라우팅 제어**      | Next.js App Router 기반 `Link` 네비게이션       |
-| 💾 **최근 검색어 저장**   | LocalStorage 저장/삭제 기능 및 비활성화 토글          |
-| 🧠 **로그인 상태 반영**   | `AuthContext`의 로그인 정보에 따라 메뉴 동적 표시       |
-| 🧩 **푸터 모달 연결**    | “이용약관 / 개인정보 처리방침” 모달 직접 연결 및 제어         |
+* TMDB API를 통해 실시간 영화 데이터 Fetch
+* 인기작 / 현재 상영작 / 평점 높은 영화 / 상영 예정작 4가지 섹션 구성
+* 데이터 캐싱(1시간) 적용으로 성능 최적화
+* `MovieSection` 컴포넌트를 재사용하여 UI 일관성 유지
 
-📁 관련 파일
-
-```
-src/component/Header.js  
-src/component/Footer.js  
-src/styles/Header.module.css  
-src/styles/Footer.module.css  
-src/app/modal/personal/page.js  
-src/app/modal/use/page.js  
-```
-
-**핵심 구현 포인트**
-
-* React 훅(`useState`, `useEffect`, `useRouter`) 기반 UI 제어
-* TMDB API 호출 최적화 (`debounce` 방식으로 불필요 호출 방지)
-* `localStorage` 동기화 로직 분리 (최근 검색어 저장/삭제 관리)
-* 다중 모달 관리 구조 설계 (`ModalPortal` 방식 대신 페이지 라우팅으로 제어)
-
----
-
-### 2️⃣ **추천(Recommendations) 페이지**
-
-| 기능                  | 설명                                                |
-| ------------------- | ------------------------------------------------- |
-| 🎯 **감정/상황 기반 추천**  | `/discover/movie?with_genres=` API 호출             |
-| 🧠 **Query 기반 필터링** | URL 파라미터(`?genres=18,10749&label=슬플 때`)에 따라 결과 표시 |
-| 📄 **결과 리스트 UI**    | `<MovieCard />` 컴포넌트로 반복 렌더링                      |
-| 🪶 **로딩/에러 핸들링**    | 데이터 없을 시 사용자 친화적 문구 표시                            |
-
-📁 관련 파일
-
-```
-src/app/recommendations/page.js
-src/component/MovieCard.jsx
-src/component/MovieSection.jsx
-```
-
-**핵심 구현 포인트**
-
-* 비동기 처리: `Promise.all` + `async/await`
-* 캐싱 전략: `next: { revalidate: 3600 }` (ISR 방식)
-* 장르별 필터링 로직 모듈화로 향후 확장성 확보
-
----
-
-### 3️⃣ **모달 (약관 / 개인정보처리방침) 구조 설계**
-
-* 페이지 라우팅 기반의 **비침투적 모달 구조**
-* `/modal/personal`, `/modal/use` 두 페이지로 분리
-* 모달 닫기 시 `router.back()` 으로 이전 상태 복원
-
-📁 관련 파일
-
-```
-src/app/modal/personal/page.js
-src/app/modal/use/page.js
+```js
+<MovieSection title="🔥 인기 영화" movies={popular} />
+<MovieSection title="🎥 현재 상영작" movies={nowPlaying} />
+<MovieSection title="⭐ 평점 높은 영화" movies={topRated} />
+<MovieSection title="⏳ 상영 예정작" movies={upcoming} />
 ```
 
 ---
 
-## 🧠 기술적 설계 포인트
+#### 2️⃣ **추천 페이지 (`recommendations/page.js`)**
 
-| 항목                         | 설명                    |
-| -------------------------- | --------------------- |
-| **1. 구조화된 App Router 사용**  | 기능별 폴더 분리로 유지보수 용이    |
-| **2. 디자인 토큰화(styles.js)**  | 색상, 간격, 타이포, 쉐도우 일원화  |
-| **3. Context 기반 인증 상태 유지** | 새로고침 시에도 로그인 유지       |
-| **4. TMDB API와 fetch 결합**  | API Key 관리 및 캐싱 처리 분리 |
-| **5. 반응형 디자인**             | 미디어쿼리 + Grid/Flex 병행  |
+* URL 쿼리(`?genres=18,10749&label=로맨스`)를 받아
+  해당 장르의 영화를 TMDB `/discover/movie` API로 Fetch
+* 장르별, 기분별, 상황별 추천 버튼과 연동
+* MovieSection 컴포넌트 재활용으로 시각적 일관성 유지
+
+```js
+https://yourdomain.com/recommendations?genres=18,10749&label=로맨스
+```
 
 ---
 
-## ⚙️ 실행 방법
+#### 3️⃣ **헤더 (`Header.jsx`)**
+
+* ✅ 영화 검색 자동완성 (TMDB `/search/multi`)
+* ✅ 최근 검색어 저장 / 삭제 / 저장 끄기 기능
+* ✅ 장르·기분·상황별 추천 드롭다운 메뉴
+* ✅ 로그인 / 로그아웃 / 마이페이지 이동
+* ✅ 관리자 로그인 시 “관리자 페이지로 이동” 버튼 표시
+* ✅ 반응형 UI 및 포커스 외부 클릭 시 자동 닫힘
+
+---
+
+#### 4️⃣ **푸터 (`Footer.jsx`)**
+
+* MovieReview 브랜드 섹션
+* 서비스 / 정보 / 소셜 링크
+* 개인정보 처리방침, 이용약관 모달 연결
+* TMDB 데이터 출처 명시
+* 연도 자동 업데이트
+* 완전한 반응형 CSS 적용 (`Footer.module.css`)
+
+---
+
+### 🌐 API 연동
+
+모든 영화 데이터는 [The Movie Database (TMDB)](https://www.themoviedb.org/) API를 사용합니다.
+
+`.env.local` 파일에 아래를 추가하세요:
+
+```
+NEXT_PUBLIC_TMDB_API_KEY=당신의_TMDB_API_KEY
+```
+
+---
+
+### 🧩 환경 및 기술 스택
+
+| 기술                           | 역할                          |
+| ---------------------------- | --------------------------- |
+| **Next.js 14+ (App Router)** | SSR & SSG, 캐싱               |
+| **React Hooks**              | 상태관리, 비동기 요청 제어             |
+| **TMDB API**                 | 영화 데이터 제공                   |
+| **CSS Modules**              | 컴포넌트별 스타일링                  |
+| **LocalStorage**             | 최근 검색어 및 로그인 정보 저장          |
+| **useRouter / searchParams** | 클라이언트 내비게이션 및 추천페이지 파라미터 처리 |
+
+---
+
+### ⚙️ 실행 방법
 
 ```bash
-# 1. 의존성 설치
+# 1. 프로젝트 클론
+git clone https://github.com/hyunn9799/sesac-movie-project.git
+cd MovieHub
+
+# 2. 패키지 설치
 npm install
 
-# 2. 환경 변수 설정
-echo "NEXT_PUBLIC_TMDB_API_KEY=YOUR_TMDB_KEY" > .env.local
+# 3. 환경변수 설정
+cp .env.example .env.local
+# NEXT_PUBLIC_TMDB_API_KEY 입력
 
-# 3. 개발 서버 실행
+# 4. 개발 서버 실행
 npm run dev
 ```
 
-> 접속: [http://localhost:3000](http://localhost:3000)
+👉 브라우저에서 [http://localhost:3000](http://localhost:3000) 열기
 
 ---
 
-## 🔑 면접/발표용 핵심 포인트
+### 💡 추가 구현 포인트
 
-* ✅ TMDB API의 `search/multi`, `discover/movie`를 활용해
-  **사용자 맞춤 추천**과 **실시간 검색** 구현
-* ✅ App Router 기반 구조로 **페이지 단위 코드 분리 + 유지보수성 향상**
-* ✅ `localStorage`를 이용한 **검색 기록 및 로그인 상태 저장**
-* ✅ 모달/추천/검색 UI 간 **UX 플로우 통합 설계**
-* ✅ 디자인 토큰 기반으로 **일관된 스타일 시스템 구성**
-
----
-
-## 📈 향후 개선 방향
-
-* 백엔드 API 연동 (회원/리뷰 실데이터)
-* JWT 기반 인증 고도화
-* 다크모드 및 접근성(A11y) 향상
-* 코드 스플리팅 및 `Suspense` 기반 로딩 최적화
+* [ ] 영화 상세페이지 구현 예정 (`/movie/[id]`)
+* [ ] 사용자 리뷰 등록/수정/삭제 기능 추가
+* [ ] 다크모드 지원
+* [ ] 즐겨찾기 / 찜 기능
+* [ ] 관리자용 영화 통계 대시보드
 
 ---
 
-## 🪪 라이선스
+### 📜 라이선스
 
-MIT License
-
-> 이 프로젝트는 TMDB의 공식 서비스가 아니며,
-> TMDB에서 제공하는 오픈 API를 학습용으로 사용합니다.
-
----
+> 본 프로젝트는 [TMDB API 사용정책](https://www.themoviedb.org/documentation/api/terms-of-use)에 따라
+> 비상업적 학습/포트폴리오 목적의 사용만을 허용합니다.
+>
+> © {currentYear} MovieHub. All rights reserved.
 
