@@ -66,7 +66,7 @@ src/
 ```
 <img width="1903" height="947" alt="영화리뷰웹 추천영화 페이지" src="https://github.com/user-attachments/assets/7764b18e-bb60-4940-a368-3dfd112c6bb3" />
 
-```
+
 
 ---
 
@@ -79,6 +79,8 @@ src/
 * ✅ 관리자 로그인 시 “관리자 페이지로 이동” 버튼 표시
 * ✅ 반응형 UI 및 포커스 외부 클릭 시 자동 닫힘
 
+<img width="1903" height="402" alt="영화리뷰웹 헤더" src="https://github.com/user-attachments/assets/fdd94db4-70c4-4e67-bafb-bc8e392098be" />
+
 ---
 
 #### 4️⃣ **푸터 (`Footer.jsx`)**
@@ -89,6 +91,8 @@ src/
 * TMDB 데이터 출처 명시
 * 연도 자동 업데이트
 * 완전한 반응형 CSS 적용 (`Footer.module.css`)
+
+<img width="1806" height="264" alt="영화리뷰웹 푸터" src="https://github.com/user-attachments/assets/7ab26c81-7ee8-451f-82e2-92c87fb316df" />
 
 ---
 
