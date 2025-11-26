@@ -8,7 +8,9 @@
 > 사용자 맞춤 영화 추천, 자동완성 검색, 로그인/마이페이지 기능 포함
 
 ---
+### 🎥 시연 영상
 
+[![MovieHub 시연 영상](https://img.youtube.com/vi/_rbmiUvQx7I/0.jpg)](https://www.youtube.com/watch?v=_rbmiUvQx7I) 
 ### 🧱 프로젝트 구조
 
 ```
